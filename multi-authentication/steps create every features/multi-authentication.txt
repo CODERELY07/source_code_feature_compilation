@@ -1,0 +1,21 @@
+You can see the other code from the files
+1. Install laravel with breeze starter kit use the documentation
+2. set up .env the database connection
+3. create migration
+- php artisan make:migration add_role_users_table
+then use migrate command
+4. create middleware
+-php artisan make:middleware Role
+add parameter $role
+5. Go to bootsrap/app.php and see the you will see the $middleware->alias
+6. make controller for admin  and agent`    
+7. Go to web.php and make the middleware group
+8. Go to controller admin and create function dashboard then go to view and create folder name admin then create file dashboard and add code
+then do also in agent 
+9. Make seeders
+- php artisan make:seeder UserSeeder
+- make sure to add the models
+- after that run php artisan db:seed --class=UserSeeder
+10. php artisan serve to run the server
+11. Go to AuthenticationSessionController find the store function and add 
+if else for $request->user()->role 

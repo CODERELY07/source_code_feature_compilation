@@ -1,0 +1,30 @@
+Note: just visit the code to learn the code I just make this as a guide.
+
+-- Read --
+
+-- Create model, controller and migratrations
+php artisan make:model Product -mcr
+This command will generate:
+Model: app/Models/Product.php
+Migration: database/migrations/xxxx_xx_xx_create_products_table.php
+Controller: app/Http/Controllers/ProductController.php
+
+--database migration
+Open database/migrations/xxxx_xx_xx_create_products_table.php
+i use this command to create the table - php artisan migrate
+
+--add dummy data using factory
+php artisan make:factory ProductFactory --model=Product
+make sure in app/Models/Product.php - have (use HasFactory)
+
+--create dummy data using tinker and factory
+php artisan tinker
+use App\Models\Product
+Product::factory()->count(10)->create();
+
+-- definre routes for crud
+routes/web.php
+
+-- view 
+resources/views/products.blade.php
+
