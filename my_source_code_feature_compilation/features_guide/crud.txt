@@ -28,3 +28,4 @@ routes/web.php
 -- view 
 resources/views/products.blade.php
 
+

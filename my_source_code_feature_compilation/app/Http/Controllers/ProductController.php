@@ -15,51 +15,48 @@ class ProductController extends Controller
         return response()->json(Product::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+        ]);
+
+        $product = Product::create($request->all());
+        return response()->json($product);
+    }
+    
+
+    public function show($id)
+    {
+        return response()->json(Product::findOrFail($id));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate input
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+        ]);
+    
+        // Find the product by its ID
+        $product = Product::findOrFail($id);
+    
+        // Update product details
+        $product->update($request->all());
+    
+        // Return the updated product as JSON response
+        return response()->json($product);
     }
+    
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        Product::destroy($id);
+        return response()->json(['message' => 'Product deleted']);
     }
 }
