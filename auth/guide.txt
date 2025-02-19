@@ -1,0 +1,25 @@
+composer require laravel/breeze --dev
+php artisan breeze:install
+php artisan migrate
+npm install && npm run dev
+
+resources/views/auth/register.blade.php - I add the script and change the form remove form attributes and add id
+I change AuthenticatedSessionController the store method just the redirect url and the response
+resources/views/auth/login.blade.php - same to register
+I change RegisteredUserController the store method just the redirect url and the response
+
+
+next verify email in laravel
+first change your .env file the Mail_Mailer Part
+
+Open app/Models/User.php and implement MustVerifyEmail:
+
+routes/auth - Email verfication
+
+you can check verify-email.blade.php to explore 
+
+in some case we want the users to use our website but in limit way when they are not verified yess we can use this code in the future use
+
+@if (!auth()->user()->hasVerifiedEmail())
+    <p>Your email is not verified! <a href="{{ route('verification.notice') }}">Verify Now</a></p>
+@endif
