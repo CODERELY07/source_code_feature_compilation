@@ -1,7 +1,10 @@
+Login with email verification
+
 composer require laravel/breeze --dev
 php artisan breeze:install
 php artisan migrate
-npm install && npm run dev
+npm install 
+npm run dev
 
 resources/views/auth/register.blade.php - I add the script and change the form remove form attributes and add id
 I change AuthenticatedSessionController the store method just the redirect url and the response
@@ -23,3 +26,78 @@ in some case we want the users to use our website but in limit way when they are
 @if (!auth()->user()->hasVerifiedEmail())
     <p>Your email is not verified! <a href="{{ route('verification.notice') }}">Verify Now</a></p>
 @endif
+
+Simple Social Login 
+Go to Login.blade.php then add a link for github
+then install composer require laravel/socialite 
+
+go to services in config/services.php
+Add github
+
+Go to web.php and add Route
+
+php artisan make:controller LoginGithub
+
+go to the controller and add the functions
+
+then go to .env to config github credentials
+
+
+Google and Github Login
+
+Go to Login.blade.php then add a link for github and google
+then install composer require laravel/socialite 
+
+then go to bootsrap icons
+https://icons.getbootstrap.com/
+search github and google and copy paste svg in login
+
+Go to web.blade.php add routes for github and google
+add model SocialLogin with migration and controller
+php artisan make:model SocialLogin -mc
+
+go to sociallogincontroller then add functions
+go to services in config/services.php
+Add github and google
+
+then go to .env file to create the value of you config 
+to get the client id and client secret go to github and setting then developer setting 
+then click the OAth and create new
+Register a new OAuth app
+
+this is what it should be:
+
+Application name
+socialite
+Something users will recognize and trust.
+
+Homepage URL
+http://127.0.0.1:8000
+The full URL to your application homepage.
+
+Application description
+Application description is optional
+This is displayed to all users of your application.
+
+Authorization callback URL
+http://127.0.0.1:8000/auth/github/login
+
+Copy the client ID and paste it in the env and also generate the client secret then paste also in env
+Make sure that the url and port as same as you local port or url
+
+For the google go to google cloud then in the head click console then you can see a boxes and click the Api and services
+then create a new project In ouor case I title it socialite
+then select the socialite and click Oath Consent screen in the sidebar
+just add the email address and app name in our case i use (my socialite app), userType external and the other is optional
+
+then go to credentials
+click create credentials then select oAtuh Client ID application type is web application
+in the uri is in the config/services redirect for google in our case: http://127.0.0.1:8000/auth/google/login then after create copy the need in the .env
+
+go to database migration for social_logins
+then go to Auth/SocialLogin Models and add relationshiip 
+
+Then go to sociallogincontroller
+Then add code to handleCallback
+
+all the other code is in the sociallogincontroller
